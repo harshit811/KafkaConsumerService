@@ -51,6 +51,37 @@ public class SimpleStringConsumer extends SpringBootServletInitializer{
 	 */
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+
+        Properties props = new Properties();
+        props.put("bootstrap.servers", "localhost:9092");
+        props.put("group.id", "mygroup");
+        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("value.deserializer", "org.apache.kafka.common.serialization.ByteArrayDeserializer");
+
+        KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(props);
+        consumer.subscribe(Arrays.asList("mytopic"));
+
+        boolean running = true;
+        System.out.println("consumer--------------------------------------------------------===========================================-----------------------------------------------------------------------------------------");
+		
+        while (running) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(100);
+            for (ConsumerRecord<String, byte[]> record : records) {
+            	
+    
+            	String sds =new String(record.value());
+            	
+            	System.out.printf("key = %s, value = %s%n", record.key(),new String(record.value()));
+            	
+            	/*System.out.println( "key = %s value = %s%n",
+                         record.key(),
+                         UserAvroSerdes.deserialize(record.value()).getName().toString());*/
+            	 
+            }
+        }
+
+        consumer.close();
+    
 	    return builder.sources(SimpleStringConsumer.class);
 	}
 	

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kafka.consumer</groupId>
 	<artifactId>kafkaconsumer</artifactId>
-	<version>0.1</version>
+	<version>0.2</version>
 	<packaging>war</packaging>
 
 
@@ -96,7 +96,7 @@
 	
 
 	 <build>
-	 <finalName>kafkaconsume</finalName>
+	 <finalName>dasdsad</finalName>
 		
 		<plugins>
             <plugin>
